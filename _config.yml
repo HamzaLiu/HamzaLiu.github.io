@@ -14,7 +14,7 @@ future: true
 # SNS settings
 RSS: false
 # weibo_username: huxpro
-zhihu_username: HamzaCoder
+# zhihu_username: huxpro
 github_username: dlgg-new
 telegram_username: HamzaCoder
 # twitter_username: huxpro
