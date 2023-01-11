@@ -43,7 +43,7 @@ update 会在 telegram 的服务器储存 24 小时，在此期间可以通过 b
 
 ### 非监听模式
 
-非监听模式下，bot 和普通用户的表现比较类似，不会一直监听 [chat](#chat) 中的消息。初始化[bot对象](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html) 后，bot 可以使用 [get_updates](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html#telegram.Bot.get_updates) 接口来接收 [update](#update)，使用 [send_message](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html?#telegram.Bot.send_message) 接口及相关的一些接口发送不同类型的消息。
+非监听模式下，bot 和普通用户的表现比较类似，不会一直监听 [chat](#chat) 中的消息。初始化[bot对象](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html)后，bot 可以使用 [get_updates](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html#telegram.Bot.get_updates) 接口来接收 [update](#update)，使用 [send_message](https://docs.python-telegram-bot.org/en/stable/telegram.bot.html?#telegram.Bot.send_message) 接口及相关的一些接口发送不同类型的消息。
 
 机器人调用完 `get_updates` 接口后直接退出，退出后自然无法响应 `update`，因此非监听模式不适合用于开发和用户交互的机器人，适合用于开发类似**定时推送消息**功能的机器人。
 
@@ -128,8 +128,8 @@ python-telegram-bot 模块中也有对 webhook 模式的支持，即实现了上
 - 管理员封禁群员：MEMBER/ADMINISTRATOR -> KICKED
 - 在群管理窗口中解除封禁：KICKED -> LEFT
 - 限制群员权限：MEMBER/ADMINISTRATOR -> RESTRICTED
-- 解除在群里的群员权限：RESTRICTED -> MEMBER
-- 解除不在群里的群员权限：RESTRICTED -> LEFT
+- 解除对群员（在群里）的权限限制：RESTRICTED -> MEMBER
+- 解除对群员（不在群里）的权限限制：RESTRICTED -> LEFT
 
 #### update 格式
 
@@ -147,7 +147,7 @@ python-telegram-bot 模块中也有对 webhook 模式的支持，即实现了上
 - 如果群组里正好有另一个删除进群退群提示消息的机器人，那么我们的机器人的监测就完全失效了。在进群验证的情境下，这种失效是致命的（用户不经验证直接入群）
 - telegram 发疯，用户进群退群没有提示消息（我就遇到过很多次，debug 自己的代码很难找到原因，令人崩溃）
 
-至今，我写过的 bot 中还有的在运行着使用 `MessageHandler` 的代码，不过以后我可能不会再写这种代码了。
+总结下来，使用 `ChatMemberHandler` 比使用 `MessageHandler` 更稳定，同时也更繁琐。
 
 ### ConversionHandler
 
